@@ -1,4 +1,4 @@
-#/!/bin/bash
+#/!/bin/bash -x
 
 echo "Welcome to Snake And Ladder Game"
 START_POSITION=0;
@@ -7,7 +7,6 @@ playerPosition=0;
 previousPosition=0;
 updatedPosition=0;
 countDiceRoll=0;
-
 
 rollDice()
 {
