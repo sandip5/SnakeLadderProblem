@@ -10,6 +10,7 @@ countDiceRoll=0;
 
 rollDice()
 {
+	countDiceRoll=$(( $countDiceRoll +1 ))
 	diceValue=$(( RANDOM%6 + 1 ))
 	option
 }
@@ -32,18 +33,36 @@ option()
 noPlay()
 {
 playerPosition=$previousPosition;
-rollDice
 }
 ladder()
 {
 updatedPosition=$(( $previousPosition + $diceValue ))
+if(( $updatedPosition > $END_POSITION ))
+then
+        playerPosition=$previousPosition;
+elif(( $updatedPosition == $END_POSITION ))
+then
+        playerPosition=$END_POSITION;
+else
+        playerPosition=$updatedPosition;
+fi
+previousPosition=$playerPosition;
 }
 snake()
 {
 updatedPosition=$(( $previousPosition - $diceValue ))
+if(( $updatedPosition < $START_POSITION ))
+then
+	playerPosition=$START_POSITION;
+else
+	playerPosition=$updatedPosition;
+fi
+previousPosition=$playerPosition;
 }
 
-while [[ playerPosition -ge START_POSITION && playerPosition -le END_POSITION ]]
+while [[ playerPosition -ge START_POSITION && playerPosition -lt END_POSITION ]]
 do
-	rollDice	
+	rollDice
+        echo "Position After Every Roll Dice ---->"$playerPosition
 done
+echo "Total Number Of Dice Roll ---> "$countDiceRoll
